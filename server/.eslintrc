@@ -1,0 +1,14 @@
+{
+  "extends": "eslint-config-egg",
+  "env": {  
+    "browser": true,  
+    "node": true,  
+    "commonjs": true  
+  },  
+  "parser": "babel-eslint",
+  
+  "rules": {
+    "linebreak-style": [0, "warn", "windows"],
+    "semi": [0, "always"]
+  }
+}
