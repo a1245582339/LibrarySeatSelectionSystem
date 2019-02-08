@@ -29,8 +29,23 @@ export default new Router({
     {
       path: '/main',
       component: () =>
-        import('./views/Main'),
-      children: []
+        import('./views/Main'), 
+      children: [
+        {
+          path: '/',
+          redirect: 'home',
+        },
+        {
+          path: 'home',
+          name: 'home',
+          component: () => import('./views/content/home'), 
+        },
+        {
+          path: 'situation',
+          name: 'situation',
+          component: () => import('./views/content/situation'), 
+        }
+      ]
     },
     {
       path: '*',

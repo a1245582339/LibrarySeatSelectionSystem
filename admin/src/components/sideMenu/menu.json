@@ -4,19 +4,19 @@
 	"icon": "ios-home",
 	"path": "/home"
 }, {
-	"title": "座位管理",
+	"title": " 座位管理",
     "icon": "ios-apps",
     "name": "seat",
 	"children": [{
 		"title": "座位情况",
         "icon": "md-time",
         "name": "situation",
-		"path": "/seat/situation"
+		"path": "situation"
 	},{
 		"title": "编辑座位",
         "icon": "ios-create",
         "name": "edit",
-		"path": "/seat/edit"
+		"path": "edit"
 	}]
 }, {
 	"title": "学校管理",
@@ -32,7 +32,8 @@
 	"title": "管理员管理",
     "icon": "md-lock",
     "name": "admin",
-	"path": "/admin"
+    "path": "/admin",
+    "auth": true
 }, {
 	"title": "个人信息",
     "icon": "md-contact",

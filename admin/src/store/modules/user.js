@@ -40,7 +40,7 @@ const user = {
             try {
                 const res = await getUserInfo(state.token)
                 if (res.data.code == '20000') {
-                    commit('SET_USER', res.data.data.user)
+                    commit('SET_USER', res.data.data)
                 } else {
                     throw res.data.msg
                 }

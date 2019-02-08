@@ -1,23 +1,23 @@
 import http from './index';
-const domin  = '/api/admin';
+const domain  = '/api/admin';
 
 export const login = user => {
-    return http.post(`${domin}/login`, user)
+    return http.post(`${domain}/login`, user)
 }
 
 export const getUserInfo = token => {
-    return http.get(`${domin}/info`)
+    return http.get(`${domain}/info`)
 }
 
 export const createUser = data => {
-    return http.post(`${domin}/userInfo`, data)
+    return http.post(`${domain}/userInfo`, data)
 }
 
 export const updateUserInfo = data => {
-    return http.post(`${domin}/userInfo`, data)
+    return http.post(`${domain}/userInfo`, data)
 }
 
 
 export const checkPassword = info => {
-    return http.get(`${domin}/checkPassword`, {params: info})
+    return http.get(`${domain}/checkPassword`, {params: info})
 }

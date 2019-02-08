@@ -8,7 +8,7 @@ class Seat extends Service {
             .where({library_id: query.library_id, isDel: 0})
         
         const order = seat.map(item => this.app.mysql.query(
-            'select `create_time`, `start_time`, `end_time` from `order` where `seat_id` = ? and ((`start_time` < ? and `end_time` > ?) or (`start_time` > ? and `start_time` < ?) or (`end_time` > ? and `end_time` < ?) or (`start_time` = ? and `start_time` = ?) or (`start_time` > ? and `start_time` < ?))'
+            'select `id` as `order_id`, `create_time`, `start_time`, `end_time`, `status` from `order` where `seat_id` = ? and `status` in(1, 2) and ((`start_time` < ? and `end_time` > ?) or (`start_time` > ? and `start_time` < ?) or (`end_time` > ? and `end_time` < ?) or (`start_time` = ? and `start_time` = ?) or (`start_time` > ? and `start_time` < ?))'
             , [item.seat_id, query.start_time, query.end_time, query.start_time, query.end_time, query.start_time, query.end_time, query.start_time, query.end_time, query.start_time, query.end_time]
             ))
         /* 
@@ -22,7 +22,7 @@ class Seat extends Service {
             5.   |------------------|      传入时间段包含表中时间段
         */
         for(let i = 0; i < order.length; i++) {
-            seat[i] = { ...(await order[i])[0], ...seat[i] }
+            seat[i] = { ...seat[i], ...(await order[i])[0] }
         }
         return seat
     }

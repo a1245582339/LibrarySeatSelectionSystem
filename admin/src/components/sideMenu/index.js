@@ -4,7 +4,8 @@
         data() {
             return {
                 activeName: this.$route.name,
-                menu: menu
+                menu: menu,
+                role: this.$store.getters.userInfo.role
             }
         },
         render() {
@@ -32,12 +33,16 @@
                             </Submenu>
                         )
                     } else {
-                        return (
-                            <MenuItem name={item.name} to={{path: item.path}}>
-                                <Icon type={item.icon}></Icon>
-                                <span>{item.title}</span>
-                            </MenuItem>
-                        )
+                        if (this.role === 2 && item.auth) {
+                            return
+                        } else {
+                            return (
+                                <MenuItem name={item.name} to={{path: item.path}}>
+                                    <Icon type={item.icon}></Icon>
+                                    <span>{item.title}</span>
+                                </MenuItem>
+                            )
+                        }
                     }
                 })
             }

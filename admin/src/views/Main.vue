@@ -11,7 +11,7 @@
                     <Button type="text" @click="logout">退出登录</Button>
                 </div>
             </Header>
-            <Content>
+            <Content style="padding: 30px">
                 <router-view />
             </Content>
         </Layout>

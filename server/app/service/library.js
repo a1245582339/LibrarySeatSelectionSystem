@@ -4,10 +4,10 @@ const Service = require('egg').Service;
 class Library extends Service {
     async find(query) {
         const list = await this.app.knex('library')
-            .select('library.id', 'library.name', 'library.university_id', 'university.name')
+            .select('library.id', 'library.name', 'library.university_id', 'seat.value')
             .leftJoin('university', 'university.id', 'library.university_id')
             .leftJoin('seat', 'seat.library_id', 'library.id')
-            .where({...query, 'university.isDel': 0, 'library.isDel': 0, 'seat.value': 1 })
+            .where({...query, 'university.isDel': 0, 'library.isDel': 0})
 
         const total = (await this.app.knex('library')
                             .count('*')
@@ -21,19 +21,28 @@ class Library extends Service {
             // 循环中await，解决await并发问题，尽量减少循环体中的同步操作
             list[i].seat_status = (await seatStatus[i]).length ? true : false     // 1为该座现在为被占状态，0为没人
         }
+        console.log(list)
         const data = list.reduce((total, curr) => {
             const index = total.findIndex(item => item.id === curr.id)
             if (index > -1) {
                 // 如果已存在，则在总数+1，如果可用，则可用数+1
-                total[index].total_seat_count++
-                curr.seat_status ? total[index].available_seat_count : total[index].available_seat_count++
+                if (curr.value) {
+                    total[index].total_seat_count++
+                    curr.seat_status ? total[index].available_seat_count : total[index].available_seat_count++
+                }
                 return total
             } else {
                 // 不存在，则总数=1，后面同上
                 let i = { ...curr }
-                i.total_seat_count = 1
-                curr.seat_status ? i.available_seat_count = 0 : i.available_seat_count = 1
+                if (curr.value) {
+                    i.total_seat_count = 1
+                    curr.seat_status ? i.available_seat_count = 0 : i.available_seat_count = 1
+                } else {
+                    i.total_seat_count = 0
+                    i.available_seat_count = 0
+                }
                 delete i.seat_status    // 把这个没用的字段删掉
+                delete i.value    // 把这个没用的字段删掉
                 return [...total, i]
             }
         }, [])
