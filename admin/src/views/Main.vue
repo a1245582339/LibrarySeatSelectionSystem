@@ -3,9 +3,6 @@
         <Sider hide-trigger collapsible :width="256" :collapsed-width="64" v-model="collapsed" class="left-sider"
             :style="{overflow: 'hidden'}">
             <side-menu>
-                <div class="logo-con">
-                    <img :src="maxLogo" key="max-logo" />
-                </div>
             </side-menu>
         </Sider>
         <Layout>
@@ -24,8 +21,23 @@
 <script>
     import SideMenu from '@/components/sideMenu'
     import { removeToken } from '@/utils/auth'
+    import maxLogo from '@/assets/images/logo.jpg'
     export default {
-        
+        components: {
+            SideMenu
+        },
+        data() {
+            return {
+                maxLogo: maxLogo,
+                collapsed: false
+            }
+        },
+        methods: {
+            logout() {
+                removeToken()
+                this.$router.replace({path: '/login'})
+            }
+        }
     }
     // import {
     //     Component,

@@ -21,8 +21,8 @@ const user = {
             try {
                 const res = await login(loginInfo);
                 if (res.data.code == '20000') {
-                    commit('SET_TOKEN', res.data.data.token);
-                    setToken(res.data.data.token);
+                    commit('SET_TOKEN', res.data.token);
+                    setToken('bare ' + res.data.token);
                 }
                 return res
             } catch (err) {

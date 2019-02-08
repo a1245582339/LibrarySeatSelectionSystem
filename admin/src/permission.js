@@ -3,11 +3,10 @@ import {
     getToken,
     removeToken
 } from './utils/auth'
-import { Toast } from 'vant';
 import store from './store'
+import message from 'iview/src/components/message'
 import Vue from 'vue'
 
-Vue.use(Toast)
 
 const whiteList = ['/login', '/register'] // 不重定向白名单
 
@@ -22,7 +21,7 @@ router.beforeEach((to, from, next) => {
             store.dispatch('GET_INFO').then(() => {
                 next()
             }).catch(err => {
-                Toast.fail('token失效');
+                message.error('token失效');
                 removeToken()
                 next({
                     path: '/login'

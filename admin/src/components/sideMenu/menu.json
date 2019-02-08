@@ -1,0 +1,41 @@
+[{
+    "title": "首页",
+    "name": "home",
+	"icon": "ios-home",
+	"path": "/home"
+}, {
+	"title": "座位管理",
+    "icon": "ios-apps",
+    "name": "seat",
+	"children": [{
+		"title": "座位情况",
+        "icon": "md-time",
+        "name": "situation",
+		"path": "/seat/situation"
+	},{
+		"title": "编辑座位",
+        "icon": "ios-create",
+        "name": "edit",
+		"path": "/seat/edit"
+	}]
+}, {
+	"title": "学校管理",
+    "icon": "ios-book",
+    "name": "university",
+    "path": "/university"
+}, {
+	"title": "座位预约管理",
+    "icon": "md-calendar",
+    "name": "order",
+    "path": "/order"
+}, {
+	"title": "管理员管理",
+    "icon": "md-lock",
+    "name": "admin",
+	"path": "/admin"
+}, {
+	"title": "个人信息",
+    "icon": "md-contact",
+    "name": "user",
+	"path": "/user"
+}]
