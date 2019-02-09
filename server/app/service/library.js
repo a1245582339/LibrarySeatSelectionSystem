@@ -3,8 +3,8 @@
 const Service = require('egg').Service;
 class Library extends Service {
     async find(query) {
-        const list = await this.app.knex('library')
-            .select('library.id', 'library.name', 'library.university_id', 'seat.value')
+        let list = await this.app.knex('library')
+            .select('library.id', 'library.name', 'library.university_id', 'seat.value', 'seat.id as seat_id')
             .leftJoin('university', 'university.id', 'library.university_id')
             .leftJoin('seat', 'seat.library_id', 'library.id')
             .where({...query, 'university.isDel': 0, 'library.isDel': 0})
@@ -14,14 +14,13 @@ class Library extends Service {
                             .where({ id: query['university.id'], isDel: 0 }))[0]["count(*)"]
 
         const timestamp = Date.now()
-
-        const seatStatus = list.map(item => this.app.knex('order').select('id').where({seat_id: item.id}).where('start_time', '<', timestamp).andWhere('end_time', '>', timestamp))  
+        const seatStatus = list.map(item => this.app.knex('order').select('id').where({seat_id: item.seat_id}).where('start_time', '<', timestamp).andWhere('end_time', '>', timestamp))  
         // 返回的每一项都是一个promise pending，等待结束之后如果这个座有人，数组长度是1，没人长度是0
         for(let i = 0; i < seatStatus.length; i++) {
             // 循环中await，解决await并发问题，尽量减少循环体中的同步操作
             list[i].seat_status = (await seatStatus[i]).length ? true : false     // 1为该座现在为被占状态，0为没人
         }
-        console.log(list)
+        // console.log(list)
         const data = list.reduce((total, curr) => {
             const index = total.findIndex(item => item.id === curr.id)
             if (index > -1) {

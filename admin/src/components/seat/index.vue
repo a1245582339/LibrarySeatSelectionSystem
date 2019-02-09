@@ -1,5 +1,5 @@
 <template>
-    <div class="seat">
+    <div v-if="seat.length" class="seat">
         <div class="line" v-for="(line, index) in seat" :key="index">
             <span class="line-index">{{index + 1}}</span>
             <div class="row" v-for="(row, _index) in line.row" :key="_index" @click="onclickSeat(row)">
@@ -7,6 +7,9 @@
             </div>
             <div style="clear: both"></div>
         </div>
+    </div>
+    <div class="nodata" v-else>
+        <p>暂无数据</p>
     </div>
 </template>
 <script>
@@ -55,6 +58,7 @@ export default {
     border: 1px solid #dddddd;
     border-radius: 5px;
     padding: 10px;
+    width: 90%;
     .line-index {
         float: left;
         line-height: 26px;
@@ -73,6 +77,24 @@ export default {
                 cursor: pointer;
             }
         }
+    }
+}
+.nodata {
+    background-image: url(../../assets/images/nodata.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-top: 50px;
+    margin-left: 200px;
+    height: 300px;
+    width: 300px;
+    position: relative;
+    p {
+        position: absolute;
+        width: 100%;
+        bottom: 20px;
+        text-align: center;
+        font-size: 16px;
+        color: #7c7c7c;
     }
 }
 

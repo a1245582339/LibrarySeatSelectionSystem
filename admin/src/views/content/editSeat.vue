@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>
-            请选择要查询的自习室
+            请选择要编辑的自习室
         </h1>
         <div style="margin-top: 20px">
             <Row>
@@ -20,8 +20,9 @@
                 </Col>
             </Row>
         </div>
-        <div style="margin-top: 20px; position: relative">
-            <seat :seat="seat" @refresh="handleSearch" />
+        
+        <div style="margin-top: 20px; position: relative;">
+            <edit-seat :seat="seat" @refresh="handleSearch" />
             <Spin size="large" fix v-if="seat_loading"></Spin>
         </div>
     </div>
@@ -36,11 +37,11 @@
     import {
         getSeat
     } from '@/api/seat';
-    import seat from '@/components/seat';
+    import editSeat from '@/components/editSeat';
     import lodash from 'lodash';
     export default {
         components: {
-            seat
+            editSeat
         },
         data() {
             return {
@@ -52,7 +53,7 @@
                 uni_option: [],
                 lib_option: [],
                 seat: [],
-                seat_loading: false
+                seat_loading: false,
             }
         },
         methods: {

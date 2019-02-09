@@ -44,6 +44,11 @@ export default new Router({
           path: 'situation',
           name: 'situation',
           component: () => import('./views/content/situation'), 
+        },
+        {
+          path: 'edit',
+          name: 'edit',
+          component: () => import('./views/content/editSeat'), 
         }
       ]
     },
