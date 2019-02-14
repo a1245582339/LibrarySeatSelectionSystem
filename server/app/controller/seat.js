@@ -8,7 +8,7 @@ class Seat extends Controller {
         const query = ctx.request.query // library的id，查询的时间段
         const seat = await ctx.service.seat.find(query)
         const data = seat.reduce((total, curr) => {
-            const index = total.findIndex(item => total.indexOf(item) === curr.line)
+            const index = total.findIndex((_, index) => index === curr.line)
             let { seat_id, value, start_time, end_time, create_time, status, order_id } = curr
             if (index > -1) {
                 start_time ? value = 2 : value      // 如果这个地方被预约了，就置为2，前端变为不可选
@@ -25,7 +25,15 @@ class Seat extends Controller {
         const ctx = this.ctx
         const { library_id } = ctx.request.query
         const { data } = ctx.request.body
-        await this.ctx.service.seat.update(library_id, data)
+        const seat = data.reduce((total, curr, index) => {
+            const line = index
+            const seatArr = curr.row.map((item, _index) => {
+                return { line, library_id, row: _index, value: item.value}
+            })
+            return [...total, ...seatArr]
+        }, [])
+        await this.ctx.service.seat.update(library_id, seat)
+        ctx.body = { code: 20000, msg: '更新成功' }
     }
 }
 

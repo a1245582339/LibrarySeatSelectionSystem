@@ -2,25 +2,32 @@
 
 const Service = require('egg').Service;
 class Library extends Service {
-    async find(query) {
+    async find(query, getStatus) {
         let list = await this.app.knex('library')
             .select('library.id', 'library.name', 'library.university_id', 'seat.value', 'seat.id as seat_id')
             .leftJoin('university', 'university.id', 'library.university_id')
             .leftJoin('seat', 'seat.library_id', 'library.id')
-            .where({...query, 'university.isDel': 0, 'library.isDel': 0})
-
+            .where({...query, 'university.isDel': 0, 'library.isDel': 0, 'seat.isDel': 0})
+        
         const total = (await this.app.knex('library')
                             .count('*')
                             .where({ id: query['university.id'], isDel: 0 }))[0]["count(*)"]
-
+        
         const timestamp = Date.now()
-        const seatStatus = list.map(item => this.app.knex('order').select('id').where({seat_id: item.seat_id}).where('start_time', '<', timestamp).andWhere('end_time', '>', timestamp))  
+
+        const seatStatus = list.map(item => {
+            if (item.value) {
+                return this.app.knex('order').select('id').where({seat_id: item.seat_id}).where('start_time', '<', timestamp).andWhere('end_time', '>', timestamp)
+            } else {
+                return []
+            }
+        })  
         // 返回的每一项都是一个promise pending，等待结束之后如果这个座有人，数组长度是1，没人长度是0
         for(let i = 0; i < seatStatus.length; i++) {
             // 循环中await，解决await并发问题，尽量减少循环体中的同步操作
             list[i].seat_status = (await seatStatus[i]).length ? true : false     // 1为该座现在为被占状态，0为没人
         }
-        // console.log(list)
+        
         const data = list.reduce((total, curr) => {
             const index = total.findIndex(item => item.id === curr.id)
             if (index > -1) {
@@ -45,6 +52,7 @@ class Library extends Service {
                 return [...total, i]
             }
         }, [])
+        
         return { data, total }
     }
 
@@ -56,8 +64,8 @@ class Library extends Service {
     }
 
     async create(data) {
-        const insertCal = await this.app.knex.insert(data).into('library')
-        return insertCal === 1
+        const library_id = await this.app.knex.insert(data).into('library')
+        return library_id[0]
     }
 }
 

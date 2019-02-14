@@ -11,7 +11,7 @@
         render() {
             const menujsx = this.renderMenu(this.menu)
             return (
-                <Menu active-name={this.activeName} theme="dark" width="auto">
+                <Menu active-name={this.activeName} theme="dark" width="auto" open-names={['seat']}>
                     <div class="logo-con">
                         <img src={maxLogo} key="max-logo" />
                     </div>
@@ -50,7 +50,6 @@
         watch: {
             '$route'(to, from) {
                 this.activeName = to.name
-                console.log(to.name)
             }
         }
     }

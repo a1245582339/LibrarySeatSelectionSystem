@@ -3,6 +3,7 @@
         <div class="line" v-for="(line, index) in seat" :key="index">
             <span class="line-index">{{index + 1}}</span>
             <div class="row" v-for="(row, _index) in line.row" :key="_index" @click="onclickSeat(row)">
+                <span v-if="index === 0" class="row-index">{{_index + 1}}</span>
                 <img v-if="row.value" :src="row.value === 1 ? empty : sold" @ alt="">
             </div>
             <div style="clear: both"></div>
@@ -57,22 +58,32 @@ export default {
 .seat {
     border: 1px solid #dddddd;
     border-radius: 5px;
-    padding: 10px;
+    padding: 50px;
     width: 90%;
+    position: relative;
+    overflow-x: auto;
     .line-index {
         float: left;
         line-height: 26px;
         color: #515a6e;
         margin-right: 50px;
+        width: 15px;
     }
     .line {
         width: 100%;
         margin-top: 5px;
+        white-space:nowrap;
         .row {
-            float: left;
+            display: inline-block;
             height: 26px;
             width: 30px;
             margin: 0 5px;
+            .row-index {
+                position: absolute;
+                top: 20px;
+                text-align: center;
+                width: 30px;
+            }
             img {
                 cursor: pointer;
             }

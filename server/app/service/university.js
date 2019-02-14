@@ -7,7 +7,7 @@ class University extends Service {
             .select('id', 'name')
             .where('name', 'like', `%${query}%`)
             .where({ isDel: 0 })
-            .offset(page * limit || 0)
+            .offset(page * limit)
             .limit(limit || 10)
         const total = (await this.app.knex('university')
                             .count('*')

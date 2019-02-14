@@ -55,7 +55,7 @@ class Admin extends Controller {
       if (isExsit) {
         ctx.body = { code: 20003, msg: '用户名已存在，新增失败！' }
       } else {
-        await ctx.service.admin.create(data)
+        await ctx.service.admin.create({...data, role: 2})
         ctx.body = { code: 20000, msg: '新增成功' }
       }
     }

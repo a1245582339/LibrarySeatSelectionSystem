@@ -5,10 +5,11 @@
             <horizontal-add v-if="index === 0" style="position: absolute;left: 20px; transform: translateY(-12px)" :index="0" @addLine="addLine" />
             <vertital-add style="transform: translateX(50px)" v-if="index === 0" @addRow="addRow" :index="0" />
             <div class="row" v-for="(row, _index) in line.row" :key="_index" @click="onclickSeat(row)">
+                <span v-if="index === 0" class="row-index">{{_index + 1}}</span>
                 <vertital-add style="transform: translateX(22px)" v-if="index === 0" @addRow="addRow" :index="_index + 1" />
                 <img :src="row.value ? empty : disabled" alt="">
                 <horizontal-del v-if="_index + 1 === line.row.length" @delLine="delLine" :index="index" />
-                <vertital-del :style="_index + 1 === line.row.length ? 'top: 30px' : ''" v-if="index + 1 === seat.length" @delRow="delRow" :index="index" />
+                <vertital-del :style="_index + 1 === line.row.length ? 'top: 30px' : ''" v-if="index + 1 === seat.length" @delRow="delRow" :index="_index" />
             </div>
             <div style="clear: both"></div>
             
@@ -63,9 +64,17 @@ export default {
             }
         },
         delLine(index) {
+            if (this.seat.length === 1) {
+                this.$Message.warning('最少保留一行座位！');
+                return false
+            }
             this.seat.splice(index, 1)
         },
         delRow(index) {
+            if (this.seat[0].row.length === 1) {
+                this.$Message.warning('最少保留一列座位！');
+                return false
+            }
             for (let item of this.seat) {
                 item.row.splice(index, 1)
             }
@@ -77,7 +86,7 @@ export default {
 .seat {
     border: 1px solid #dddddd;
     border-radius: 5px;
-    padding: 50px;
+    padding: 80px 50px;
     width: 90%;
     position: relative;
     overflow-x: auto;
@@ -97,6 +106,12 @@ export default {
             height: 26px;
             width: 30px;
             margin: 0 5px;
+            .row-index {
+                position: absolute;
+                top: -60px;
+                text-align: center;
+                width: 30px;
+            }
             img {
                 cursor: pointer;
             }

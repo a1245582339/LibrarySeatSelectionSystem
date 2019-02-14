@@ -87,7 +87,7 @@
             },
             async handleSearch() {
                 this.seat_loading = true
-                const res = await getSeat({library_id: this.form.library_id, start_time: Date.now(), end_time: Date.now()})
+                const res = await getSeat({library_id: this.form.library_id, start_time: Date.now(), end_time: Date.now() + 1})
                 this.seat = res.data.data
                 setTimeout(() => {
                     this.seat_loading = false

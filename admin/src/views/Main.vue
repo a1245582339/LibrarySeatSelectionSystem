@@ -19,7 +19,7 @@
 </template>
 
 <script>
-    import SideMenu from '@/components/sideMenu'
+    import SideMenu from '@/components/sideMenu/index.jsx'
     import { removeToken } from '@/utils/auth'
     import maxLogo from '@/assets/images/logo.jpg'
     export default {
@@ -39,30 +39,6 @@
             }
         }
     }
-    // import {
-    //     Component,
-    //     Prop,
-    //     Vue,
-    //     Watch
-    // } from 'vue-property-decorator';
-    // import maxLogo from '@/assets/images/logo.jpg'
-    // @Component({
-    //     components: {
-    //         SideMenu
-    //     },
-    // })
-    // export default class Main extends Vue {
-    //     maxLogo = maxLogo;
-    //     collapsed = false;
-    //     logout() {
-    //         removeToken()
-    //         this.$router.push({path: '/login'})
-    //     }
-    //     created() {
-
-    //     };
-        
-    // }
 </script>
 
 

@@ -1,6 +1,6 @@
 <template>
     <div class="divider">
-        <Button shape="circle" icon="md-add" size="small" @click="onclickBtn"></Button>
+        <Button shape="circle" icon="md-add" size="small" @click.stop="onclickBtn"></Button>
     </div>
 </template>
 <script>

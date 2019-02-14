@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>
-            请选择要编辑的自习室
+            编辑自习室座位
         </h1>
         <div style="margin-top: 20px">
             <Row>
@@ -21,10 +21,11 @@
             </Row>
         </div>
         
-        <div style="margin-top: 20px; position: relative;">
+        <div style="margin-top: 20px; position: relative">
             <edit-seat :seat="seat" @refresh="handleSearch" />
             <Spin size="large" fix v-if="seat_loading"></Spin>
         </div>
+        <Button style="margin-top: 20px" v-if="seat.length" type="primary" @click="submit">提交</Button>
     </div>
 </template>
 <script>
@@ -35,7 +36,8 @@
         getLibrary
     } from '@/api/library';
     import {
-        getSeat
+        getSeat,
+        updateSeat
     } from '@/api/seat';
     import editSeat from '@/components/editSeat';
     import lodash from 'lodash';
@@ -82,7 +84,7 @@
                 this.lib_option = res.data.data.map(item => {
                     return {
                         value: item.id,
-                        label: `${item.name} (可用座位${item.available_seat_count} 总座位${item.total_seat_count})`
+                        label: `${item.name}`
                     }
                 })
             },
@@ -93,6 +95,11 @@
                 setTimeout(() => {
                     this.seat_loading = false
                 }, 200)
+            },
+            async submit() {
+                const res = await updateSeat(this.form.library_id, this.seat)
+                this.$Message.success(res.data.msg);
+                this.handleSearch()
             },
             debounce(fun, time) {
                 return lodash.debounce(fun, time)

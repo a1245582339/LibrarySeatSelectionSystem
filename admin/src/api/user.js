@@ -9,15 +9,11 @@ export const getUserInfo = token => {
     return http.get(`${domain}/info`)
 }
 
-export const createUser = data => {
-    return http.post(`${domain}/userInfo`, data)
-}
-
 export const updateUserInfo = data => {
     return http.post(`${domain}/userInfo`, data)
 }
 
 
-export const checkPassword = info => {
-    return http.get(`${domain}/checkPassword`, {params: info})
+export const checkPassword = params => {
+    return http.get(`${domain}/password`, {params})
 }

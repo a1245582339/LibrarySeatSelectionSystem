@@ -41,6 +41,8 @@ module.exports = app => {
 
   // 获取自习室
   router.get('/api/library', controller.library.getLibrary)
+  // 新增自习室
+  router.post('/api/library', controller.library.updatelibrary)
 
   // 获取座位
   router.get('/api/seat', controller.seat.getSeat)

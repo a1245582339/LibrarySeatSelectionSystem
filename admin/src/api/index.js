@@ -17,7 +17,7 @@ http.interceptors.request.use(
     if (getToken() && getToken() !== 'undefined') {
         config.headers.Authorization = getToken()
     } else if (whiteList.indexOf(window.location.pathname) === -1) {
-        message.warning('登录信息失效！请重新登录')
+        // message.warning('登录信息失效！请重新登录')
         window.location = '/#/login'
     }
     return config

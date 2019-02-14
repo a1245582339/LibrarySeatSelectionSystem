@@ -17,7 +17,7 @@ const user = {
 
     actions: {
         async LOGIN({ commit }, loginInfo) {
-            console.log(loginInfo)
+            // console.log(loginInfo)
             try {
                 const res = await login(loginInfo);
                 if (res.data.code == '20000') {

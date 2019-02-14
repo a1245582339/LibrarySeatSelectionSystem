@@ -47,7 +47,7 @@ export default {
           login_name: vm.form.login_name,
           password: vm.form.password
         }).then(res => {
-            console.log(res)
+            // console.log(res)
           if (res.data.code === 20000) {
             this.$Message.success("登录成功");
             vm.$router.push({

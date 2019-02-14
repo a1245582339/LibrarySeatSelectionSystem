@@ -6,11 +6,18 @@ class Seat extends Service {
         const seat = await this.app.knex('seat')
             .select('id as seat_id', 'line', 'row', 'value')
             .where({library_id: query.library_id, isDel: 0})
-        
-        const order = seat.map(item => this.app.mysql.query(
-            'select `id` as `order_id`, `create_time`, `start_time`, `end_time`, `status` from `order` where `seat_id` = ? and `status` in(1, 2) and ((`start_time` < ? and `end_time` > ?) or (`start_time` > ? and `start_time` < ?) or (`end_time` > ? and `end_time` < ?) or (`start_time` = ? and `start_time` = ?) or (`start_time` > ? and `start_time` < ?))'
-            , [item.seat_id, query.start_time, query.end_time, query.start_time, query.end_time, query.start_time, query.end_time, query.start_time, query.end_time, query.start_time, query.end_time]
-            ))
+            
+        const order = seat.map(item => {
+            if (item.value) {
+                return this.app.mysql.query(
+                    'select `id` as `order_id`, `create_time`, `start_time`, `end_time`, `status` from `order` where `seat_id` = ? and `status` in (1, 2) and ((`start_time` < ? and `end_time` > ?) or (`start_time` > ? and `start_time` < ?) or (`end_time` > ? and `end_time` < ?) or (`start_time` = ? and `start_time` = ?) or (`start_time` > ? and `start_time` < ?))'
+                    , [item.seat_id, query.start_time, query.end_time, query.start_time, query.end_time, query.start_time, query.end_time, query.start_time, query.end_time, query.start_time, query.end_time]
+                    )
+            } else {
+                return []
+            }
+        })
+           
         /* 
         五种情况 
             表中    |----------|
@@ -30,7 +37,7 @@ class Seat extends Service {
     async update(library_id, data) {
         await this.app.knex('seat')
             .update({isDel: 1})
-            .where('id', library_id)
+            .where('library_id', library_id)
         const insertCal = await this.app.knex.insert(data).into('seat')
         return insertCal === 1
     }

@@ -48,7 +48,27 @@ export default new Router({
         {
           path: 'edit',
           name: 'edit',
-          component: () => import('./views/content/editSeat'), 
+          component: () => import('./views/content/editLib'), 
+        },
+        {
+          path: 'create',
+          name: 'create',
+          component: () => import('./views/content/createLib'), 
+        },
+        {
+          path: 'university',
+          name: 'university',
+          component: () => import('./views/content/university'), 
+        },
+        {
+          path: 'admin',
+          name: 'admin',
+          component: () => import('./views/content/admin'), 
+        },
+        {
+          path: 'user',
+          name: 'user',
+          component: () => import('./views/content/user'), 
         }
       ]
     },
