@@ -9,6 +9,7 @@
     "@fortawesome/react-fontawesome": "^0.1.4",
     "@svgr/webpack": "4.1.0",
     "antd-mobile": "^2.2.8",
+    "axios": "^0.18.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "9.0.0",
     "babel-jest": "23.6.0",
@@ -39,6 +40,7 @@
     "jest-pnp-resolver": "1.0.2",
     "jest-resolve": "23.6.0",
     "jest-watch-typeahead": "^0.2.1",
+    "js-cookie": "^2.2.0",
     "mini-css-extract-plugin": "0.5.0",
     "node-sass": "^4.11.0",
     "optimize-css-assets-webpack-plugin": "5.0.1",
@@ -47,10 +49,12 @@
     "postcss-loader": "3.0.0",
     "postcss-preset-env": "6.5.0",
     "postcss-safe-parser": "4.0.1",
+    "rc-form": "^2.4.2",
     "react": "^16.8.1",
     "react-app-polyfill": "^0.2.1",
     "react-dev-utils": "^7.0.3",
     "react-dom": "^16.8.1",
+    "react-redux": "^6.0.1",
     "react-router-dom": "^4.3.1",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
@@ -134,5 +138,6 @@
         }
       ]
     ]
-  }
+  },
+  "proxy": "http://127.0.0.1:3000"
 }

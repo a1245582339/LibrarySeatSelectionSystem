@@ -7,7 +7,7 @@ class Student extends Controller {
   async login() {
     const ctx = this.ctx;
     const { id, password } = ctx.request.body
-    const res = await ctx.service.student.findStu({ id, password })
+    const res = await ctx.service.student.findStu({ 'student.id': id, password })
     if (res.length) {
       const token = jwt.sign({
         id,

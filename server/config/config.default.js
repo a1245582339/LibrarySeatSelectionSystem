@@ -11,7 +11,7 @@ module.exports = appInfo => {
     'jwt',
   ];
   config.jwt = {
-    ignore: [ '/api/admin/login', '/api/user/login' ],
+    ignore: [ '/api/admin/login', '/api/student/login' ],
   }
 
   config.security = {
