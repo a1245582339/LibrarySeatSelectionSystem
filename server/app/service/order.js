@@ -9,8 +9,6 @@ class Order extends Service {
             .leftJoin('seat', 'seat.id', 'order.seat_id')
             .leftJoin('library', 'seat.library_id', 'library.id')
             .where({stu_id: query.stu_id})
-            .andWhere('start_time', '<', query.start_time)
-            .andWhere('end_time', '<', query.end_time)
         return data
     }
     
@@ -25,6 +23,13 @@ class Order extends Service {
           .insert(data)
           .into('order')
         return create === 1
+    }
+    async checkOrderExist(query) {
+        const data = this.app.mysql.query(
+                'select `id` , `create_time`, `start_time`, `end_time`, `status` from `order` where `stu_id` = ? and `status` in (1, 2) and ((`start_time` < ? and `end_time` > ?) or (`start_time` > ? and `start_time` < ?) or (`end_time` > ? and `end_time` < ?) or (`start_time` = ? and `start_time` = ?) or (`start_time` > ? and `start_time` < ?))'
+                , [query.stu_id, query.start_time, query.end_time, query.start_time, query.end_time, query.start_time, query.end_time, query.start_time, query.end_time, query.start_time, query.end_time]
+            )
+        return data
     }
 }
 

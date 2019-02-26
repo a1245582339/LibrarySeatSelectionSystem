@@ -1,0 +1,15 @@
+.seat {
+    height: 100%;
+    width: 90%;
+    margin: 0 auto;
+    .line {
+        white-space: nowrap;
+        margin-bottom: 5px; 
+        .row {
+            display: inline-block;
+            margin-left: 5px;
+            width: 30px;
+            height: 26px;
+        }
+    }
+}

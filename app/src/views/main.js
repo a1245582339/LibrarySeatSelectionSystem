@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
-
+import { Route, withRouter } from 'react-router-dom';
 import { TabBar, Toast } from 'antd-mobile';
+import store from '@/store'
+import { initStudent } from '@/reducer/student';
 import Page from './pages'
 import '@s/main.scss'
 import { getToken } from '@u/cookie';
+import { stuInfo } from '@h/student'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faHome, faUserAlt, faCalendar, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
@@ -20,31 +22,15 @@ const Main = (props) => {
             });
         }
     }, [props.history.location.pathname])
+
+    useEffect(() => {
+        stuInfo().then(res => {
+            store.dispatch(initStudent(res.data.res[0]))
+        })
+    }, [])
+
     const [route, setRoute] = useState(props.history.location.pathname)
-    const RouterView = () => {
-        return (
-            <>
-                <Switch>
-                    <Redirect exact
-                        from="/main"
-                        to="/main/home"
-                    />
-                    <Route
-                        component={Page.Home}
-                        path="/main/home"
-                    />
-                    <Route
-                        component={Page.Order}
-                        path="/main/order"
-                    />
-                    <Route
-                        component={Page.User}
-                        path="/main/user"
-                    />
-                </Switch>
-            </>
-        )
-    }
+
     return (
         <>
             <TabBar
@@ -58,13 +44,19 @@ const Main = (props) => {
                     key="home"
                     onPress={() => {
                         setRoute('/main/home')
-                        props.history.push('home')
+                        props.history.replace('/main/home')
                     }}
-                    selected={route === '/main/home' || route === '/main'}
+                    // selected={route === '/main/home'}
+                    selected={/^\/main\/home/.test(route)}
                     selectedIcon={<FontAwesomeIcon icon="home" />}
                     title="主页"
                 >
-                    {<RouterView />}
+                    {
+                        <Route
+                            component={Page.Home}
+                            path="/main/home"
+                        />
+                    }
                 </TabBar.Item>
                 <TabBar.Item
                     data-seed="logId"
@@ -72,13 +64,18 @@ const Main = (props) => {
                     key="order"
                     onPress={() => {
                         setRoute('/main/order')
-                        props.history.push('order')
+                        props.history.replace('/main/order')
                     }}
                     selected={route === '/main/order'}
                     selectedIcon={<FontAwesomeIcon icon="calendar-alt" />}
                     title="我的预约"
                 >
-                    {<RouterView />}
+                    {
+                        <Route
+                            component={Page.Order}
+                            path="/main/order"
+                        />
+                    }
                 </TabBar.Item>
                 <TabBar.Item
                     data-seed="logId"
@@ -86,13 +83,18 @@ const Main = (props) => {
                     key="user"
                     onPress={() => {
                         setRoute('/main/user')
-                        props.history.push('user')
+                        props.history.replace('/main/user')
                     }}
                     selected={route === '/main/user'}
                     selectedIcon={<FontAwesomeIcon icon="user-alt" />}
                     title="个人信息"
                 >
-                    {<RouterView />}
+                    {
+                        <Route
+                            component={Page.User}
+                            path="/main/user"
+                        />
+                    }
                 </TabBar.Item>
             </TabBar>
         </>

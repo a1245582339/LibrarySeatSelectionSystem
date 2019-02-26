@@ -16,9 +16,9 @@ const Login = (props) => {
         const res = await login(value)
         setTimeout(() => {
           if (res.data.code === 20000) {
-            setToken(res.data.token)
+            setToken('bare ' + res.data.token)
             Toast.success('登陆成功！', 2, () => {
-              props.history.replace('/main')
+              props.history.replace('/main/home')
             })
           } else {
             Toast.fail(res.data.msg)

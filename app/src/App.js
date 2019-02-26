@@ -9,7 +9,7 @@ class App extends Component {
             <Switch>
                 <Redirect exact
                     from="/"
-                    to="/main"
+                    to="/main/home"
                 />
                 <Route component={Views.Main}
                     path="/main"

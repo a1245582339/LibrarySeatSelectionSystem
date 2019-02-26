@@ -22,7 +22,7 @@ class Student extends Controller {
   async getUserInfo() {
     const ctx = this.ctx;
     const { id, password } = jwt.verify(ctx.request.header.authorization.split(' ')[1], 'secret');
-    const res = await ctx.service.student.findStu({ id, password })
+    const res = await ctx.service.student.findStu({ 'student.id': id, password })
     if (res.length) {
       ctx.body = { code: 20000, res }
     } else {

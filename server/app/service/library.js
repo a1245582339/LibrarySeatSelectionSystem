@@ -2,7 +2,7 @@
 
 const Service = require('egg').Service;
 class Library extends Service {
-    async find(query, getStatus) {
+    async find(query) {
         let list = await this.app.knex('library')
             .select('library.id', 'library.name', 'library.university_id', 'seat.value', 'seat.id as seat_id')
             .leftJoin('university', 'university.id', 'library.university_id')

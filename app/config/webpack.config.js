@@ -266,6 +266,7 @@ module.exports = function(webpackEnv) {
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
         'react-native': 'react-native-web',
         '@': paths.appSrc,
+        '@a': path.resolve(paths.appSrc, 'assets'),
         '@c': path.resolve(paths.appSrc, 'components'),
         '@h': path.resolve(paths.appSrc, 'http'),
         '@s': path.resolve(paths.appSrc, 'style'),

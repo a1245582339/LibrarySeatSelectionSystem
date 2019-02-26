@@ -34,10 +34,6 @@ module.exports = app => {
   // 新增/更新学校
   router.post('/api/university', controller.university.updateUniversity)
 
-  // 获取学校列表/查询学校
-  router.get('/api/university', controller.university.getUniversity)
-  // 新增/更新学校
-  router.post('/api/university', controller.university.updateUniversity)
 
   // 获取自习室
   router.get('/api/library', controller.library.getLibrary)
