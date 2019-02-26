@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { getOrder, updateOrder } from '@h/order'
-import store from '@/store'
+import { connect } from 'react-redux'
 import { List, Toast, Modal } from 'antd-mobile';
 import { timestampToTime } from '@u/time'
 
@@ -11,10 +11,10 @@ const alert = Modal.alert;
 
 const Order = (props) => {
     const [data, setData] = useState([])
-    const stu_id = store.getState().student.id
+    const stu_id = props.student.id
     useEffect(() => {
         fetchData()
-    }, [store.getState().student.id])
+    }, [props.student.id])
 
     const fetchData = () => {
         if (stu_id) {
@@ -73,4 +73,10 @@ const Order = (props) => {
     )
 }
 
-export default Order
+const mapStateToProps = (state) => {
+    return {
+        student: state.student
+    }
+}
+
+export default connect(mapStateToProps)(Order)

@@ -17,7 +17,7 @@ class Library extends Service {
 
         const seatStatus = list.map(item => {
             if (item.value) {
-                return this.app.knex('order').select('id').where({seat_id: item.seat_id}).where('start_time', '<', timestamp).andWhere('end_time', '>', timestamp)
+                return this.app.knex('order').select('id').where({seat_id: item.seat_id, status: 1}).where('start_time', '<', timestamp).andWhere('end_time', '>', timestamp)
             } else {
                 return []
             }

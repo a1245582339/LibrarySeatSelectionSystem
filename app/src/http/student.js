@@ -13,6 +13,6 @@ export const checkPassword = (params) => {
     return http.get(`${domain}/password`, { params })
 }
 
-export const updateStu = (data) => {
-    return http.post(`${domain}`, { data })
+export const updateStu = ({id, data}) => {
+    return http.post(`${domain}?id=${id}`, { data })
 }

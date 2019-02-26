@@ -1,4 +1,6 @@
 import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
+import { Toast } from 'antd-mobile';
+import { timestampTohm } from '@u/time'
 import PinchZoom from '@u/pinchzoom';
 import '@s/seat.scss'
 
@@ -22,7 +24,8 @@ const Seat = (props) => {
 
     const handleChooseSeat = (row) => {
         if (row.value === 2) {
-            return false
+            console.log(row)
+            Toast.info(`预约时间:${timestampTohm(row.start_time)}-${timestampTohm(row.end_time)}`)
         } else {
             const value = row.value === 1 ? 3 : 1
             const seat_id = row.seat_id

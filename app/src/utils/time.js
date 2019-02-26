@@ -9,3 +9,10 @@ export const timestampToTime = (timestamp) => {
     const m = supply0(date.getMinutes());
     return `${Y}-${M}-${D} ${h}:${m}`;
 };
+
+export const timestampTohm = (timestamp) => {
+    const date = new Date(timestamp - 0);
+    const h = supply0(date.getHours());
+    const m = supply0(date.getMinutes());
+    return `${h}:${m}`;
+};

@@ -5,7 +5,7 @@ import LibDetail from '@c/libDetail';
 import { Route, Redirect, withRouter, Switch } from 'react-router-dom';
 
 
-const Home = (props) => {
+const Home = () => {
     return(
         <Switch>
             <Redirect exact

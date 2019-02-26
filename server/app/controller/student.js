@@ -55,7 +55,7 @@ class Student extends Controller {
   async checkPassword() {
     const ctx = this.ctx;
     const { id, password } = ctx.request.query;
-    const res = await ctx.service.student.findStu({ id, password })
+    const res = await ctx.service.student.findStu({ 'student.id': id, password })
     if (res.length) {
       ctx.body = {code: 20000, msg: '校验成功'}
     } else {
