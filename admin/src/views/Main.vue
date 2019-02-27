@@ -21,14 +21,12 @@
 <script>
     import SideMenu from '@/components/sideMenu/index.jsx'
     import { removeToken } from '@/utils/auth'
-    import maxLogo from '@/assets/images/logo.jpg'
     export default {
         components: {
             SideMenu
         },
         data() {
             return {
-                maxLogo: maxLogo,
                 collapsed: false
             }
         },

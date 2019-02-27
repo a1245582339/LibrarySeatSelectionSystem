@@ -11,7 +11,10 @@ class Seat extends Controller {
             const index = total.findIndex((_, index) => index === curr.line)
             let { seat_id, value, start_time, end_time, create_time, status, order_id } = curr
             if (index > -1) {
-                start_time ? value = 2 : value      // 如果这个地方被预约了，就置为2，前端变为不可选
+                if (start_time) {
+                    value = 2    // 如果这个地方被预约了，就置为2，前端变为不可选
+                }
+                
                 total[index].row.push({ seat_id, value, start_time, end_time, create_time, status, order_id })
                 return total
             } else {

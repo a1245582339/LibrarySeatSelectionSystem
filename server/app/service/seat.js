@@ -10,7 +10,7 @@ class Seat extends Service {
         const order = seat.map(item => {
             if (item.value) {
                 return this.app.mysql.query(
-                    'select `id` as `order_id`, `create_time`, `start_time`, `end_time`, `status` from `order` where `seat_id` = ? and `status` in (1, 2) and ((`start_time` < ? and `end_time` > ?) or (`start_time` > ? and `start_time` < ?) or (`end_time` > ? and `end_time` < ?) or (`start_time` = ? and `start_time` = ?) or (`start_time` > ? and `start_time` < ?))'
+                    'select `id` as `order_id`, `create_time`, `start_time`, `end_time`, `status` from `order` where `seat_id` = ? and `status` = 1 and ((`start_time` < ? and `end_time` > ?) or (`start_time` > ? and `start_time` < ?) or (`end_time` > ? and `end_time` < ?) or (`start_time` = ? and `end_time` = ?) or (`start_time` > ? and `end_time` < ?))'
                     , [item.seat_id, query.start_time, query.end_time, query.start_time, query.end_time, query.start_time, query.end_time, query.start_time, query.end_time, query.start_time, query.end_time]
                     )
             } else {

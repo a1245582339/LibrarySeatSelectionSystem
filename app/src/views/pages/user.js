@@ -12,7 +12,7 @@ const User = (props) => {
             <div>
                 <form>
                     <List className="my-list"
-                        renderHeader={() => 'aaa'}
+                        renderHeader={() => '个人信息'}
                     >
                         <Item extra={props.student.id}>学号</Item>
                         <Item extra={props.student.name}>姓名</Item>

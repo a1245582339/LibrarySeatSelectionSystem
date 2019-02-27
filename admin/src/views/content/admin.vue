@@ -4,7 +4,7 @@
             管理员管理
         </h1>
         <div style="margin-top: 20px;">
-            <Input style="width: 300px; float: left" v-model="search_word" search enter-button placeholder="请输入关键字" @on-search="fetchData" />
+            <!-- <Input style="width: 300px; float: left" v-model="search_word" search enter-button placeholder="请输入关键字" @on-search="fetchData" /> -->
             <Button style="float: right" type="primary" @click="modalNoshow">新建</Button>
             <div style="clear: both"></div>
         </div>

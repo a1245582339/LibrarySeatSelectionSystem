@@ -40,7 +40,7 @@ export default {
             } else if (row.value === 2) {
                 this.$Modal.confirm({
                     okText: '强制签退',
-                    title: `SEAT_ID:${row.seat_id} ${row.status === 1 ? '未签到' : '已签到'}`,
+                    title: `SEAT_ID:${row.seat_id}`,
                     content: `<p>占用时间: ${timestampToTime(row.start_time)}-${timestampToTime(row.end_time)}</p>`,
                     onOk: async () => {
                         await updateOrder({id: row.order_id}, {end_time: Date.now()})

@@ -9,6 +9,7 @@ class Order extends Service {
             .leftJoin('seat', 'seat.id', 'order.seat_id')
             .leftJoin('library', 'seat.library_id', 'library.id')
             .where({stu_id: query.stu_id})
+            .orderBy('create_time', 'desc')
         return data
     }
     

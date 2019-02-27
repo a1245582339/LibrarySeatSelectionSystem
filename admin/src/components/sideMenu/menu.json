@@ -1,42 +1,43 @@
 [{
     "title": "首页",
     "name": "home",
-	"icon": "ios-home",
-	"path": "home"
+    "icon": "ios-home",
+    "path": "home"
 }, {
-	"title": " 座位管理",
+    "title": " 座位管理",
     "icon": "ios-apps",
     "name": "seat",
-	"children": [{
-		"title": "座位情况",
+    "children": [{
+        "title": "座位情况",
         "icon": "md-time",
         "name": "situation",
-		"path": "situation"
-	},{
-		"title": "编辑自习室",
+        "path": "situation"
+    }, {
+        "title": "编辑自习室",
         "icon": "ios-create",
         "name": "edit",
-		"path": "edit"
-	},{
-		"title": "创建自习室",
+        "path": "edit"
+    }, {
+        "title": "创建自习室",
         "icon": "md-add-circle",
         "name": "create",
-		"path": "create"
-	}]
+        "path": "create"
+    }]
 }, {
-	"title": "学校管理",
+    "title": "学校管理",
     "icon": "ios-book",
     "name": "university",
     "path": "university"
 }, {
-	"title": "管理员管理",
+    "title": "管理员管理",
     "icon": "md-lock",
     "name": "admin",
     "path": "admin",
     "auth": true
 }, {
-	"title": "个人信息",
+    "title": "个人信息",
     "icon": "md-contact",
     "name": "user",
-	"path": "user"
+    "path": "user"
 }]
+

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { getOrder, updateOrder } from '@h/order'
 import { connect } from 'react-redux'
 import { List, Toast, Modal } from 'antd-mobile';
-import { timestampToTime } from '@u/time'
+import { timestampToTime, timestampTohm } from '@u/time'
 
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -47,7 +47,8 @@ const Order = (props) => {
                                               onPress: () =>
                                                 {
                                                     return new Promise(async (resolve) => {
-                                                        await updateOrder({id: item.id, data: {status: 0}})
+                                                        const data = item.start_time > Date.now() ? { status: 0 } : { end_time: Date.now() }
+                                                        await updateOrder({id: item.id, data})
                                                         Toast.info('成功!', 2);
                                                         setTimeout(() => {
                                                             resolve()
@@ -61,8 +62,9 @@ const Order = (props) => {
                                 }}
                             >
                             {`${item.name} ${item.line + 1}排 ${item.row + 1}列`}
-                                <span style={{color: '#ccc'}}>{`(${item.end_time < Date.now() || item.status === 0 ? '已过期' : '占用中,点击可取消'})`}</span>
-                                <Brief>预约时间:{` ${timestampToTime(item.start_time)}至${timestampToTime(item.end_time)}`}</Brief>
+                                {/* <span style={{color: '#ccc'}}>{`(${item.end_time < Date.now() || item.status === 0 ? '已过期' : '占用中,点击可取消'})`}</span> */}
+                                <span style={{color: '#ccc'}}>{`(${item.status === 0 ? '已取消' : (item.end_time < Date.now() ? '已过期' : '占用中,点击可取消')})`}</span>
+                                <Brief>预约时间:{` ${timestampToTime(item.start_time)}至${timestampTohm(item.end_time)}`}</Brief>
                             </Item>
                         )
                     })}

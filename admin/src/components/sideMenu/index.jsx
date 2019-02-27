@@ -1,4 +1,4 @@
-    import maxLogo from '@/assets/images/logo.jpg'
+    import maxLogo from '@/assets/images/logo-min.jpg'
     import menu from './menu.json'
     export default {
         data() {

@@ -1,6 +1,6 @@
 <template>
     <div>
-        首页
+        <h1 style="margin: 100px">欢迎登录座位管理系统！</h1>
     </div>
 </template>
 <script>

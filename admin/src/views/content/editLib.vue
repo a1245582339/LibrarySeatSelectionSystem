@@ -96,10 +96,18 @@
                     this.seat_loading = false
                 }, 200)
             },
-            async submit() {
-                const res = await updateSeat(this.form.library_id, this.seat)
-                this.$Message.success(res.data.msg);
-                this.handleSearch()
+            submit() {
+                this.$Modal.confirm({
+                    title: '警告',
+                    content: '<p>此操作会清除当前未开始的预约信息，强烈建议在自习室闭馆后操作，确认提交？</p>',
+                    loading: true,
+                    onOk: async () => {
+                        const res = await updateSeat(this.form.library_id, this.seat)
+                        this.$Message.success(res.data.msg);
+                        this.handleSearch()
+                    }
+                });
+                
             },
             debounce(fun, time) {
                 return lodash.debounce(fun, time)

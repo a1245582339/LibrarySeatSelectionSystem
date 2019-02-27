@@ -6,7 +6,15 @@
         <div style="margin-top: 20px">
             <Row>
                 <Col :gutter="16" span="10" style="padding-right:10px">
-                    <Select v-model="form.university_id" filterable remote :remote-method="debounce(searchUni, 300)" :loading="uni_loading" @on-change="chooseUni" placeholder="请输入搜索大学名称">
+                    <Select 
+                        v-model="form.university_id" 
+                        filterable 
+                        remote 
+                        :remote-method="debounce(searchUni, 300)" 
+                        :loading="uni_loading" 
+                        @on-change="chooseUni" 
+                        placeholder="请输入搜索大学名称"
+                    >
                         <Option v-for="(option, index) in uni_option" :value="option.value" :key="index">{{option.label}}</Option>
                     </Select>
                 </Col>
