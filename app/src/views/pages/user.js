@@ -1,12 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { List, Modal, Toast } from 'antd-mobile';
+import { List, Modal, Toast, WingBlank, WhiteSpace, Button } from 'antd-mobile';
 import { updateStu, checkPassword } from '@h/student'
+import { delToken } from '@u/cookie';
 
 const Item = List.Item;
 const prompt = Modal.prompt
 
 const User = (props) => {
+    const handleLogout = () => {
+        delToken()
+        props.history.replace('/login')
+    }
     return(
         <>
             <div>
@@ -64,6 +69,12 @@ const User = (props) => {
                             }}
                         >密码</Item>
                     </List>
+                    <WhiteSpace size="lg" />
+                    <WingBlank>
+                        <Button onClick={() => {handleLogout()}}
+                            type="warning"
+                        >退出登录</Button>
+                    </WingBlank>
                 </form>
             </div>
         </>
